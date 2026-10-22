@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1904,7 +1905,7 @@
       <div class="form-group">
         <label>Enlace Público de tu Tienda Web / PWA:</label>
         <div style="display: flex; gap: 8px;">
-          <input type="url" id="input-public-store-url" class="form-input" placeholder="https://outletsportca.netlify.app" onchange="updateCustomPublicUrl()">
+          <input type="url" id="input-public-store-url" class="form-input" placeholder="https://outletsportca.github.io/index.html/" onchange="updateCustomPublicUrl()">
           <button class="btn-copy" onclick="saveCustomPublicUrl()">Guardar</button>
         </div>
         <span style="font-size: 0.7rem; color: var(--text-muted);">Este enlace mostrará los 150 modelos completos a tus clientes.</span>
@@ -2338,8 +2339,46 @@
         <button class="close-btn" onclick="closeModal('admin-modal')">&times;</button>
       </div>
 
-      <div style="background: rgba(37, 99, 235, 0.12); border: 1px solid var(--primary); padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 0.78rem; color: #93C5FD;">
-        Has accedido a la configuración privada de <strong>OUTLET SPORT C.A</strong> (150 Espacios).
+      <div style="background: rgba(37, 99, 235, 0.12); border: 1px solid var(--primary); padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; font-size: 0.78rem; color: #93C5FD; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+        <span>Configuración privada de <strong>OUTLET SPORT C.A</strong>.</span>
+        <button type="button" class="btn-copy" style="background: var(--success); border-color: #34D399; color: #0F172A; font-weight: 800; white-space: nowrap;" onclick="closeModal('admin-modal'); openUploadModal(null);">
+          ➕ Nueva Zapatilla
+        </button>
+      </div>
+
+      <!-- SINCRONIZACIÓN EN TIEMPO REAL CON GITHUB -->
+      <div style="background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10B981; padding: 12px; border-radius: var(--radius-sm); margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <h4 style="font-size: 0.86rem; color: #34D399; margin: 0; display: flex; align-items: center; gap: 5px;">
+            <span>⚡</span> Actualización en Tiempo Real (GitHub)
+          </h4>
+          <span id="gh-sync-badge" style="font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 10px; background: rgba(56, 189, 248, 0.15); color: #38BDF8;">Listo</span>
+        </div>
+        <p style="font-size: 0.72rem; color: #CBD5E1; line-height: 1.4; margin-bottom: 10px;">
+          Conecta tu Token de GitHub una sola vez para que cada foto, precio o zapatilla nueva se publique <strong>en tiempo real para todos tus clientes</strong> al tocar «Guardar», o usa el botón de abajo para copiar el HTML con tus cambios.
+        </p>
+        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+          <div style="flex: 1;">
+            <label style="font-size: 0.68rem; color: #94A3B8; display: block; margin-bottom: 2px;">Usuario GitHub</label>
+            <input type="text" id="cfg-gh-owner" class="form-input" placeholder="outletsportca" style="padding: 7px 10px; font-size: 0.8rem;">
+          </div>
+          <div style="flex: 1;">
+            <label style="font-size: 0.68rem; color: #94A3B8; display: block; margin-bottom: 2px;">Repositorio</label>
+            <input type="text" id="cfg-gh-repo" class="form-input" placeholder="index.html" style="padding: 7px 10px; font-size: 0.8rem;">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+          <label style="font-size: 0.68rem; color: #94A3B8;">Token Personal de GitHub (ghp_... para auto-publicar en vivo)</label>
+          <input type="password" id="cfg-gh-token" class="form-input" placeholder="Pega aquí tu token ghp_..." style="padding: 7px 10px; font-size: 0.8rem;">
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn-action-primary" style="flex: 1; padding: 9px; font-size: 0.76rem; background: #10B981; color: #0F172A; font-weight: 800;" onclick="syncCatalogToGitHubNow(false)">
+            ⚡ Publicar en Vivo Ahora
+          </button>
+          <button type="button" class="btn-copy" style="flex: 1; padding: 9px; font-size: 0.76rem; background: #2563EB; border-color: #38BDF8;" onclick="copyFullHtmlForGitHub()">
+            📋 Copiar HTML Actualizado
+          </button>
+        </div>
       </div>
 
       <div class="checkout-form">
@@ -2350,7 +2389,7 @@
         </div>
         <div class="form-group">
           <label>Enlace Público Oficial de la Tienda (URL para clientes) *</label>
-          <input type="url" id="cfg-public-url" class="form-input" placeholder="https://outletsportca.netlify.app">
+          <input type="url" id="cfg-public-url" class="form-input" placeholder="https://outletsportca.github.io/index.html/">
           <span style="font-size: 0.7rem; color: var(--text-muted);">Los clientes usarán este enlace para acceder a tu catálogo online desde internet.</span>
         </div>
         <div class="form-group">
@@ -2551,7 +2590,7 @@
       breb: "sneakers.cali.co",
       adminPin: "123456",
       adminEmail: "carlosgaviriagaviria13@gmail.com",
-      publicUrl: "",
+      publicUrl: "https://outletsportca.github.io/index.html/",
       promoVideoUrl: "",
       biometricsEnabled: true
     };
@@ -2573,8 +2612,180 @@
     let pendingProtectedAction = null;
     let generatedRecoveryCode = null;
 
+    let lastCatalogUpdatedAt = Number(safeGetLocal("sneaker_catalog_updated_at") || "0");
+
+    function detectGitHubRepoInfo() {
+      let owner = safeGetLocal("outlet_sport_gh_owner") || "";
+      let repo = safeGetLocal("outlet_sport_gh_repo") || "";
+      if (window.location.hostname.endsWith(".github.io")) {
+        const autoOwner = window.location.hostname.split(".")[0];
+        const pathParts = window.location.pathname.split("/").filter(Boolean);
+        const autoRepo = pathParts.length > 0 ? pathParts[0] : window.location.hostname;
+        if (!owner) owner = autoOwner;
+        if (!repo) repo = autoRepo;
+      }
+      if (!owner) owner = "outletsportca";
+      if (!repo) repo = "index.html";
+      return { owner, repo };
+    }
+
     function saveCatalog() {
+      lastCatalogUpdatedAt = Date.now();
       safeSetLocal("sneaker_150_catalog", JSON.stringify(catalog));
+      safeSetLocal("sneaker_catalog_updated_at", String(lastCatalogUpdatedAt));
+      const token = safeGetLocal("outlet_sport_gh_token") || "";
+      if (token && token.trim().length > 10) {
+        syncCatalogToGitHubNow(true);
+      }
+    }
+
+    function utf8ToBase64(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }
+
+    function base64ToUtf8(b64) {
+      return decodeURIComponent(escape(window.atob(b64.replace(/\s/g, ""))));
+    }
+
+    async function syncCatalogToGitHubNow(isSilentAuto = false) {
+      const tokenInput = document.getElementById("cfg-gh-token");
+      const ownerInput = document.getElementById("cfg-gh-owner");
+      const repoInput = document.getElementById("cfg-gh-repo");
+
+      if (tokenInput && tokenInput.value.trim()) {
+        safeSetLocal("outlet_sport_gh_token", tokenInput.value.trim());
+      }
+      if (ownerInput && ownerInput.value.trim()) {
+        safeSetLocal("outlet_sport_gh_owner", ownerInput.value.trim());
+      }
+      if (repoInput && repoInput.value.trim()) {
+        safeSetLocal("outlet_sport_gh_repo", repoInput.value.trim());
+      }
+
+      const token = (safeGetLocal("outlet_sport_gh_token") || "").trim();
+      const { owner, repo } = detectGitHubRepoInfo();
+      const badge = document.getElementById("gh-sync-badge");
+
+      if (!token) {
+        if (!isSilentAuto) {
+          showToast("⚠️ Ingresa tu Token de GitHub o usa 'Copiar HTML Actualizado'");
+        }
+        return false;
+      }
+
+      if (badge) {
+        badge.textContent = "Sincronizando... ⏳";
+        badge.style.color = "#F59E0B";
+      }
+      if (!isSilentAuto) {
+        showToast("⚡ Publicando cambios en tiempo real en GitHub...");
+      }
+
+      try {
+        const livePayload = {
+          updatedAt: Date.now(),
+          publicConfig: {
+            storeName: storeConfig.storeName || "OUTLET SPORT C.A",
+            whatsapp: storeConfig.whatsapp || "573157419697",
+            nequi: storeConfig.nequi || "312 456 7890",
+            breb: storeConfig.breb || "sneakers.cali.co",
+            publicUrl: storeConfig.publicUrl || "",
+            promoVideoUrl: storeConfig.promoVideoUrl || ""
+          },
+          catalog: catalog
+        };
+
+        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/catalogo_vivo.json`;
+        const headers = {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/vnd.github+json",
+          "Content-Type": "application/json"
+        };
+
+        let existingSha = null;
+        const getResp = await fetch(apiUrl + `?t=${Date.now()}`, { headers, cache: "no-store" });
+        if (getResp.ok) {
+          const getJson = await getResp.json();
+          existingSha = getJson.sha;
+        }
+
+        const putBody = {
+          message: `Actualizacion en tiempo real OUTLET SPORT C.A (${new Date().toLocaleTimeString()})`,
+          content: utf8ToBase64(JSON.stringify(livePayload))
+        };
+        if (existingSha) putBody.sha = existingSha;
+
+        const putResp = await fetch(apiUrl, {
+          method: "PUT",
+          headers,
+          body: JSON.stringify(putBody)
+        });
+
+        if (!putResp.ok) {
+          throw new Error("Verifica el Token o el nombre del repositorio");
+        }
+
+        safeSetLocal("sneaker_catalog_updated_at", String(livePayload.updatedAt));
+        if (badge) {
+          badge.textContent = "En Vivo ✅";
+          badge.style.color = "#34D399";
+        }
+        showToast("⚡ ¡Tienda actualizada en tiempo real para todos los clientes!");
+        return true;
+      } catch (err) {
+        console.warn("GitHub Auto-Sync error:", err);
+        if (badge) {
+          badge.textContent = "Error Token ⚠️";
+          badge.style.color = "#EF4444";
+        }
+        if (!isSilentAuto) {
+          showToast("⚠️ No se pudo conectar: revisa tu Token o usa 'Copiar HTML'");
+        }
+        return false;
+      }
+    }
+
+    async function fetchLiveCatalogFromCloud() {
+      const { owner, repo } = detectGitHubRepoInfo();
+      const ts = Date.now();
+      const candidateUrls = [];
+      if (window.location.protocol.startsWith("http")) {
+        candidateUrls.push(`./catalogo_vivo.json?t=${ts}`);
+      }
+      candidateUrls.push(`https://raw.githubusercontent.com/${owner}/${repo}/main/catalogo_vivo.json?t=${ts}`);
+
+      for (const url of candidateUrls) {
+        try {
+          const resp = await fetch(url, { cache: "no-store" });
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data && Array.isArray(data.catalog) && data.catalog.length > 0) {
+              const remoteTime = Number(data.updatedAt || 0);
+              const localTime = Number(safeGetLocal("sneaker_catalog_updated_at") || "0");
+              if (remoteTime >= localTime) {
+                catalog = data.catalog;
+                safeSetLocal("sneaker_150_catalog", JSON.stringify(catalog));
+                safeSetLocal("sneaker_catalog_updated_at", String(remoteTime));
+                if (data.publicConfig) {
+                  storeConfig.storeName = data.publicConfig.storeName || storeConfig.storeName;
+                  storeConfig.whatsapp = data.publicConfig.whatsapp || storeConfig.whatsapp;
+                  storeConfig.nequi = data.publicConfig.nequi || storeConfig.nequi;
+                  storeConfig.breb = data.publicConfig.breb || storeConfig.breb;
+                  if (data.publicConfig.publicUrl) storeConfig.publicUrl = data.publicConfig.publicUrl;
+                  if (data.publicConfig.promoVideoUrl !== undefined) storeConfig.promoVideoUrl = data.publicConfig.promoVideoUrl;
+                  const nequiEl = document.getElementById("display-nequi");
+                  const brebEl = document.getElementById("display-breb");
+                  if (nequiEl) nequiEl.textContent = storeConfig.nequi;
+                  if (brebEl) brebEl.textContent = storeConfig.breb;
+                }
+                renderCatalog();
+                return true;
+              }
+            }
+          }
+        } catch (e) {}
+      }
+      return false;
     }
 
     function updateAdminUI() {
@@ -2906,7 +3117,7 @@
       if (window.location.protocol.startsWith("http")) {
         return window.location.origin + window.location.pathname;
       }
-      return "https://outletsportca.netlify.app";
+      return "https://outletsportca.github.io/index.html/";
     }
 
     function openShareModal() {
@@ -2966,14 +3177,32 @@ ${shareUrl}`;
       }
     }
 
+    function buildUpdatedHtmlWithCurrentCatalog() {
+      // Clear sensitive inputs before serializing DOM
+      const tokenInput = document.getElementById("cfg-gh-token");
+      const savedVal = tokenInput ? tokenInput.value : "";
+      if (tokenInput) tokenInput.value = "";
+
+      let rawHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      if (tokenInput) tokenInput.value = savedVal;
+
+      // Replace INITIAL_150_SNEAKERS with the latest catalog (including new photos, prices, stock, and added models)
+      const updatedCatalogJson = JSON.stringify(catalog);
+      rawHtml = rawHtml.replace(
+        /const INITIAL_150_SNEAKERS = \[[\s\S]*?\];/,
+        "const INITIAL_150_SNEAKERS = " + updatedCatalogJson + ";"
+      );
+      return rawHtml;
+    }
+
     function copyFullHtmlForGitHub() {
-      const fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-      safeCopyText(fullHtml, "✅ ¡Código HTML copiado! Pégalo en GitHub (index.html)");
+      const fullHtml = buildUpdatedHtmlWithCurrentCatalog();
+      safeCopyText(fullHtml, "✅ ¡Código HTML con tus cambios copiado! Pégalo en GitHub (index.html)");
     }
 
     function downloadIndexHtmlFile() {
       try {
-        const fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+        const fullHtml = buildUpdatedHtmlWithCurrentCatalog();
         const blob = new Blob([fullHtml], { type: "text/html;charset=utf-8" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -2983,7 +3212,7 @@ ${shareUrl}`;
         a.click();
         a.remove();
         setTimeout(() => URL.revokeObjectURL(url), 2000);
-        showToast("📥 Archivo index.html guardado en Descargas");
+        showToast("📥 Archivo index.html actualizado guardado en Descargas");
       } catch (e) {
         copyFullHtmlForGitHub();
       }
@@ -4162,6 +4391,19 @@ ${itemsListText}━━━━━━━━━━━━━━━━━━━━
       document.getElementById("cfg-breb").value = storeConfig.breb;
       document.getElementById("cfg-admin-email").value = storeConfig.adminEmail || "carlosgaviriagaviria13@gmail.com";
       document.getElementById("cfg-new-pin").value = "";
+      const { owner, repo } = detectGitHubRepoInfo();
+      const ownerEl = document.getElementById("cfg-gh-owner");
+      const repoEl = document.getElementById("cfg-gh-repo");
+      const tokenEl = document.getElementById("cfg-gh-token");
+      const badge = document.getElementById("gh-sync-badge");
+      if (ownerEl) ownerEl.value = owner;
+      if (repoEl) repoEl.value = repo;
+      if (tokenEl) tokenEl.value = safeGetLocal("outlet_sport_gh_token") || "";
+      if (badge) {
+        const hasTok = !!(safeGetLocal("outlet_sport_gh_token") || "").trim();
+        badge.textContent = hasTok ? "Auto-Sync Activo ⚡" : "Modo 1-Toque 📋";
+        badge.style.color = hasTok ? "#34D399" : "#38BDF8";
+      }
       updateAdminVideoStatus();
       openModal("admin-modal");
     }
@@ -4173,6 +4415,13 @@ ${itemsListText}━━━━━━━━━━━━━━━━━━━━
       storeConfig.nequi = document.getElementById("cfg-nequi").value.trim() || storeConfig.nequi;
       storeConfig.breb = document.getElementById("cfg-breb").value.trim() || storeConfig.breb;
       storeConfig.adminEmail = document.getElementById("cfg-admin-email").value.trim().toLowerCase() || storeConfig.adminEmail;
+
+      const ownerEl = document.getElementById("cfg-gh-owner");
+      const repoEl = document.getElementById("cfg-gh-repo");
+      const tokenEl = document.getElementById("cfg-gh-token");
+      if (ownerEl && ownerEl.value.trim()) safeSetLocal("outlet_sport_gh_owner", ownerEl.value.trim());
+      if (repoEl && repoEl.value.trim()) safeSetLocal("outlet_sport_gh_repo", repoEl.value.trim());
+      if (tokenEl) safeSetLocal("outlet_sport_gh_token", tokenEl.value.trim());
 
       const newPin = document.getElementById("cfg-new-pin").value.trim();
       if (newPin) {
@@ -4189,6 +4438,11 @@ ${itemsListText}━━━━━━━━━━━━━━━━━━━━
 
       document.getElementById("display-nequi").textContent = storeConfig.nequi;
       document.getElementById("display-breb").textContent = storeConfig.breb;
+
+      const hasTok = !!(safeGetLocal("outlet_sport_gh_token") || "").trim();
+      if (hasTok) {
+        syncCatalogToGitHubNow(true);
+      }
 
       closeModal("admin-modal");
       showToast("Configuración guardada correctamente");
@@ -4207,6 +4461,12 @@ ${itemsListText}━━━━━━━━━━━━━━━━━━━━
       initPromoVideo();
       renderCatalog();
       updateCartBadge();
+      fetchLiveCatalogFromCloud();
+      setInterval(() => {
+        if (!isAdminAuthenticated) {
+          fetchLiveCatalogFromCloud();
+        }
+      }, 20000);
     }
 
     if (document.readyState === "loading") {
@@ -4217,3 +4477,4 @@ ${itemsListText}━━━━━━━━━━━━━━━━━━━━
   </script>
 </body>
 </html>
+```
