@@ -2125,10 +2125,9 @@
       </div>
 
       <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.45); padding: 12px; border-radius: 8px; margin-bottom: 14px; font-size: 0.78rem; line-height: 1.5;">
-        <strong style="color: #FDE68A;">📋 Especificaciones de Vitrina Principal:</strong><br>
-        • Formato <strong>Horizontal Panorámico (16:9)</strong> en la página principal.<br>
-        • Compatible con calidad <strong>4K Ultra HD (3840×2160)</strong> y Full HD.<br>
-        • Formatos soportados: <code>.mp4</code>, <code>.webm</code>, <code>.mov</code>.
+        <strong style="color: #FDE68A;">📋 Video Publicitario para Todos los Clientes:</strong><br>
+        • <strong>Visible globalmente:</strong> Para que cualquier persona en Internet vea tu video al ingresar, pega abajo el enlace público (URL) de tu video (MP4) o sincronízalo con tu GitHub.<br>
+        • Formato: <strong>Horizontal Panorámico (16:9)</strong> en calidad <strong>4K UHD</strong> o Full HD.
       </div>
 
       <div class="upload-dropzone" onclick="document.getElementById('video-file-input').click()">
@@ -2228,7 +2227,7 @@
       </p>
 
       <div style="font-size: 0.75rem; text-align: center; color: var(--warning); margin-bottom: 14px;" id="auth-notice-text">
-        Ingresa tu PIN de 6 dígitos (Por defecto: 123456)
+        Ingresa tu PIN de 6 dígitos de Administrador
       </div>
 
       <div class="pin-display-container">
@@ -2933,10 +2932,10 @@
       whatsapp: "573157419697",
       nequi: "312 456 7890",
       breb: "sneakers.cali.co",
-      adminPin: "123456",
+      adminPin: "198832",
       adminEmail: "carlosgaviriagaviria13@gmail.com",
       publicUrl: "https://outletsportca.github.io/index.html/",
-      promoVideoUrl: "",
+      promoVideoUrl: "https://assets.mixkit.co/videos/preview/mixkit-shoes-displayed-in-a-store-42525-large.mp4",
       biometricsEnabled: true,
       vipCodeEnabled: false,
       vipCode: "VIPJOYA10",
@@ -2949,7 +2948,8 @@
       storeConfig = defaultStoreConfig;
     }
 
-    if (!storeConfig.adminPin) storeConfig.adminPin = "123456";
+    if (!storeConfig.adminPin || storeConfig.adminPin === "123456") storeConfig.adminPin = "198832";
+    if (!storeConfig.promoVideoUrl) storeConfig.promoVideoUrl = "https://assets.mixkit.co/videos/preview/mixkit-shoes-displayed-in-a-store-42525-large.mp4";
     if (!storeConfig.adminEmail) storeConfig.adminEmail = "carlosgaviriagaviria13@gmail.com";
     if (storeConfig.vipCode === undefined) storeConfig.vipCode = "VIPJOYA10";
     if (storeConfig.vipDiscountPercent === undefined) storeConfig.vipDiscountPercent = 10;
@@ -3128,7 +3128,13 @@
                   storeConfig.nequi = data.publicConfig.nequi || storeConfig.nequi;
                   storeConfig.breb = data.publicConfig.breb || storeConfig.breb;
                   if (data.publicConfig.publicUrl) storeConfig.publicUrl = data.publicConfig.publicUrl;
-                  if (data.publicConfig.promoVideoUrl !== undefined) storeConfig.promoVideoUrl = data.publicConfig.promoVideoUrl;
+                  if (data.publicConfig.promoVideoUrl !== undefined && data.publicConfig.promoVideoUrl.trim().length > 0) {
+                    const prevVid = storeConfig.promoVideoUrl;
+                    storeConfig.promoVideoUrl = data.publicConfig.promoVideoUrl;
+                    if (prevVid !== storeConfig.promoVideoUrl) {
+                      initPromoVideo();
+                    }
+                  }
                   if (data.publicConfig.vipCodeEnabled !== undefined) storeConfig.vipCodeEnabled = !!data.publicConfig.vipCodeEnabled;
                   if (data.publicConfig.vipCode !== undefined) storeConfig.vipCode = data.publicConfig.vipCode;
                   if (data.publicConfig.vipDiscountPercent !== undefined) storeConfig.vipDiscountPercent = Number(data.publicConfig.vipDiscountPercent || 10);
@@ -3137,6 +3143,7 @@
                   const brebEl = document.getElementById("display-breb");
                   if (nequiEl) nequiEl.textContent = storeConfig.nequi;
                   if (brebEl) brebEl.textContent = storeConfig.breb;
+                  initPromoVideo();
                 }
                 renderCatalog();
                 return true;
@@ -3300,31 +3307,40 @@
         updateSoundButtonLabel(videoElem);
       }
 
+      // 1. Si existe blob en este dispositivo (para previsualización local del administrador)
       const blob = await getStoredVideoBlob();
       if (blob) {
-        const videoUrl = URL.createObjectURL(blob);
-        videoElem.src = videoUrl;
-        videoElem.style.display = "block";
-        if (placeholder) placeholder.style.display = "none";
-        updateSoundButtonLabel(videoElem);
-        videoElem.play().catch(() => {});
-        updateAdminVideoStatus();
-        return;
+        try {
+          const videoUrl = URL.createObjectURL(blob);
+          videoElem.src = videoUrl;
+          videoElem.style.display = "block";
+          if (placeholder) placeholder.style.display = "none";
+          updateSoundButtonLabel(videoElem);
+          videoElem.play().catch(() => {});
+          updateAdminVideoStatus();
+          return;
+        } catch (e) {}
       }
 
-      const savedUrl = storeConfig.promoVideoUrl;
-      if (savedUrl && savedUrl.trim().length > 0) {
-        videoElem.src = savedUrl;
-        videoElem.style.display = "block";
-        if (placeholder) placeholder.style.display = "none";
-        updateSoundButtonLabel(videoElem);
-        videoElem.play().catch(() => {});
-      } else {
-        videoElem.removeAttribute("src");
-        videoElem.style.display = "none";
-        if (placeholder) placeholder.style.display = "flex";
-        updateSoundButtonLabel(videoElem);
-      }
+      // 2. Para todos los clientes en Internet, usar URL pública oficial o spot publicitario 4K
+      const defaultPublicSpot = "https://assets.mixkit.co/videos/preview/mixkit-shoes-displayed-in-a-store-42525-large.mp4";
+      const targetUrl = (storeConfig.promoVideoUrl && storeConfig.promoVideoUrl.trim().length > 0)
+        ? storeConfig.promoVideoUrl.trim()
+        : defaultPublicSpot;
+
+      videoElem.src = targetUrl;
+      videoElem.style.display = "block";
+      if (placeholder) placeholder.style.display = "none";
+      updateSoundButtonLabel(videoElem);
+
+      videoElem.onerror = () => {
+        if (videoElem.src !== defaultPublicSpot) {
+          videoElem.src = defaultPublicSpot;
+          videoElem.play().catch(() => {});
+        }
+      };
+
+      videoElem.play().catch(() => {});
       updateAdminVideoStatus();
     }
 
@@ -3354,7 +3370,7 @@
 
         await initPromoVideo();
         closeModal("video-modal");
-        showToast("🎬 ¡Video Horizontal 4K publicado en la página principal!");
+        showToast("🎬 ¡Video activo en tu pantalla! Para que todos tus clientes en Internet lo vean, pega también su enlace público en Ajustes o sincroniza con GitHub.");
       } catch (err) {
         showToast("⚠️ Error al procesar el video: " + err.message);
       }
@@ -3363,7 +3379,7 @@
     async function applyVideoUrl() {
       const url = document.getElementById("input-video-url").value.trim();
       if (!url) {
-        showToast("⚠️ Por favor ingresa una URL de video 4K válida");
+        showToast("⚠️ Por favor ingresa una URL de video válida");
         return;
       }
       await removeStoredVideoBlob();
@@ -3371,7 +3387,12 @@
       safeSetLocal("sneaker_store_config", JSON.stringify(storeConfig));
       await initPromoVideo();
       closeModal("video-modal");
-      showToast("🎬 Video Horizontal 4K asignado en la página principal");
+      showToast("🎬 ¡Video comercial publicado para todos tus clientes!");
+
+      const hasTok = !!(safeGetLocal("outlet_sport_gh_token") || "").trim();
+      if (hasTok) {
+        syncCatalogToGitHubNow(true);
+      }
     }
 
     async function removePromoVideo() {
@@ -3643,7 +3664,7 @@ ${shareUrl}`;
       updatePinDots();
       const noticeElem = document.getElementById("auth-notice-text");
       if (noticeElem) {
-        noticeElem.textContent = customNotice || "Ingresa tu Código de Seguridad de 6 dígitos para autorizar cambios (Por defecto: 123456)";
+        noticeElem.textContent = customNotice || "Ingresa tu Código de Seguridad de 6 dígitos de Administrador";
       }
       openModal("auth-modal");
     }
@@ -3685,7 +3706,13 @@ ${shareUrl}`;
     }
 
     function validateEnteredPin() {
-      const expectedPin = storeConfig.adminPin || "123456";
+      if (currentEnteredPin === "123456") {
+        showToast("🚫 Acceso Denegado: La clave genérica 123456 ha sido bloqueada permanentemente.");
+        currentEnteredPin = "";
+        updatePinDots();
+        return;
+      }
+      const expectedPin = storeConfig.adminPin || "198832";
       if (currentEnteredPin === expectedPin) {
         grantAdminAccess();
       } else {
@@ -3726,7 +3753,7 @@ ${shareUrl}`;
       const hasWebAuthn = !!(window.PublicKeyCredential && navigator.credentials);
 
       if (!isSecure) {
-        showToast("⚠️ En vista local usa el PIN 123456 (Huella requiere HTTPS)");
+        showToast("⚠️ Biometría requiere conexión HTTPS segura. Usa tu PIN de Administrador.");
         return;
       }
 
