@@ -12,7 +12,11 @@
   <meta name="apple-mobile-web-app-title" content="OUTLET SPORT C.A">
   <title>OUTLET SPORT C.A | 150 Modelos de Zapatillas</title>
   
-  <link id="pwa-manifest-link" rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22OUTLET%20SPORT%20C.A%22%2C%22short_name%22%3A%22OUTLET%20SPORT%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230F172A%22%2C%22theme_color%22%3A%22%230F172A%22%7D">
+  <link id="pwa-manifest-link" rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="logo_outlet_sport_300.png">
 
   <style>
     /* ========================================================
@@ -2030,9 +2034,6 @@
         <span class="brand-badge">150 MODELOS</span>
       </div>
       <div class="header-actions">
-        <button id="btn-install-app-header" class="btn-install-nav" onclick="triggerInstallApp()" title="Instalar App Oficial OUTLET SPORT C.A en tu dispositivo">
-          <span id="install-btn-icon">📲</span> <span id="install-btn-text">Instalar App</span>
-        </button>
         <button id="btn-admin-access" class="btn-admin-nav" onclick="handleAdminButtonClick()" title="Acceso y Bloqueo de Administrador">
           <span id="admin-btn-icon">🔒</span> <span id="admin-btn-text">Admin</span>
         </button>
@@ -2192,10 +2193,6 @@
           <span>Probar Enlace</span>
         </button>
       </div>
-      <button type="button" class="btn-action-primary" style="background: linear-gradient(135deg, #10B981, #059669); color: #0F172A; font-weight: 800; margin-bottom: 14px;" onclick="closeModal('share-modal'); triggerInstallApp();">
-        <span>📲</span> Instalar App en este Celular (Con Logo Oficial)
-      </button>
-
       <div class="pay-key-display">
         <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.8rem; color: #38BDF8;" id="share-url-text">
           Cargando enlace...
@@ -2449,26 +2446,7 @@
         <!-- Tallas -->
       </div>
 
-      <!-- CERTIFICADO DIGITAL VIP DE AUTENTICIDAD (PIEZA SELECCIONADA COMO UNA JOYA) -->
-      <div class="jewel-certificate-box">
-        <div class="jewel-certificate-title">
-          <span>💎 CERTIFICADO DIGITAL VIP DE AUTENTICIDAD</span>
-          <span id="modal-jewel-serial" style="font-size: 0.66rem; background: rgba(245, 158, 11, 0.2); padding: 2px 7px; border-radius: 6px; border: 1px solid rgba(245, 158, 11, 0.4);">#JOYA-VIP</span>
-        </div>
-        <div class="jewel-certificate-desc">
-          Has elegido una pieza de colección distinguida como una verdadera <strong>joya de calzado</strong>. Incluye su <strong>Certificado Digital VIP de Autenticidad</strong> con número de serie único y sello oficial de <strong>OUTLET SPORT C.A</strong>.
-        </div>
-        <button type="button" class="btn-jewel-cert" onclick="openVipCertificateModalForActiveProduct()">
-          <span>💎</span> Ver / Descargar Certificado Digital VIP de Autenticidad
-        </button>
-      </div>
-
-      <div style="margin-top: 14px;">
-        <button id="btn-add-modal" class="btn-action-primary" style="width: 100%; padding: 14px; font-size: 0.95rem; font-weight: 800;" onclick="addSelectedToCart()">
-          <span>🛒</span> Añadir al Carrito
-        </button>
-      </div>
-    </div>
+      
   </div>
 
   <!-- ========================================================
@@ -2511,12 +2489,8 @@
           <span id="cart-vip-discount-amount">-$ 0 COP</span>
         </div>
         <div class="summary-row">
-          <span>💎 Certificado Digital VIP de Autenticidad:</span>
-          <span style="color: #FDE68A; font-weight: 800;">INCLUIDO</span>
-        </div>
-        <div class="summary-row">
-          <span>Envío a toda Colombia:</span>
-          <span style="color: #34D399; font-weight: 700;">GRATIS</span>
+          <span>Envío:</span>
+          <span style="color: #38BDF8; font-weight: 700;">A toda Colombia</span>
         </div>
         <div class="summary-row total">
           <span>Total a Pagar:</span>
@@ -2550,9 +2524,9 @@
           <!-- Inyectado dinámicamente con foto, datos y botones de descarga/copia -->
         </div>
         <div class="checkout-photo-notice">
-          <span style="font-size: 1.1rem; flex-shrink: 0;">💎</span>
+          <span style="font-size: 1.1rem; flex-shrink: 0;">📸</span>
           <div>
-            <strong>Pieza seleccionada como una joya + Foto oficial:</strong> Tu pedido adjuntará la foto de la zapatilla y tu <strong>Certificado Digital VIP de Autenticidad</strong> personalizado al WhatsApp oficial (<strong>3157419697</strong>).
+            <strong>Foto oficial del calzado:</strong> Tu pedido adjuntará la foto de la zapatilla seleccionada al WhatsApp oficial (<strong>3157419697</strong>) para despacho inmediato.
           </div>
         </div>
       </div>
@@ -2833,167 +2807,6 @@
     </div>
   </div>
 
-  <!-- ========================================================
-       MODAL: CERTIFICADO DIGITAL VIP DE AUTENTICIDAD ("COMO UNA JOYA")
-       ======================================================== -->
-  <div id="vip-certificate-modal" class="modal-overlay" onclick="closeModalOnBackdrop(event, 'vip-certificate-modal')">
-    <div class="drawer-content" style="border-top: 2px solid #F59E0B; background: linear-gradient(180deg, #0F172A 0%, #090D16 100%);">
-      <div class="drawer-header" style="border-bottom-color: rgba(245, 158, 11, 0.3);">
-        <h3 style="color: #FDE68A; display: flex; align-items: center; gap: 6px;">
-          <span>💎</span> Certificado Digital VIP de Autenticidad
-        </h3>
-        <button class="close-btn" onclick="closeModal('vip-certificate-modal')">&times;</button>
-      </div>
-
-      <p style="font-size: 0.78rem; color: #CBD5E1; line-height: 1.45; margin-bottom: 10px;">
-        Cada par de <strong>OUTLET SPORT C.A</strong> es seleccionado como una pieza de colección de alto valor estético, digna de lucirse como una joya. Personaliza tu certificado con tu nombre y guárdalo en alta definición.
-      </p>
-
-      <div class="form-group" style="margin-bottom: 10px;">
-        <label style="color: #FDE68A; font-size: 0.74rem;">Nombre del Propietario / Coleccionista VIP:</label>
-        <input type="text" id="vip-cert-owner-input" class="form-input" placeholder="Escribe tu nombre para grabarlo en el certificado" oninput="refreshVipCertificatePreview()" style="border-color: rgba(245, 158, 11, 0.45); color: #FDE68A; font-weight: 700;">
-      </div>
-
-      <div style="width: 100%; background: #050811; border: 1.5px solid #F59E0B; border-radius: 12px; overflow: hidden; margin-bottom: 12px; box-shadow: 0 10px 28px rgba(0,0,0,0.65);">
-        <canvas id="vip-cert-canvas" width="1200" height="820" style="width: 100%; height: auto; display: block;"></canvas>
-      </div>
-
-      <div style="display: flex; gap: 8px;">
-        <button type="button" class="btn-jewel-cert" style="flex: 2; padding: 12px;" onclick="downloadCurrentVipCertificate()">
-          <span>📥</span> Descargar Certificado VIP (HD)
-        </button>
-        <button type="button" class="btn-copy" style="flex: 1; padding: 12px; background: #1E293B; border-color: #F59E0B; color: #FDE68A; font-weight: 800;" onclick="copyCurrentVipCertificate()">
-          📋 Copiar
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========================================================
-       MODAL: INSTALAR APP OFICIAL (PWA SEGURA CON LOGO OUTLET SPORT C.A)
-       ======================================================== -->
-  <div id="install-app-modal" class="modal-overlay" onclick="closeModalOnBackdrop(event, 'install-app-modal')">
-    <div class="drawer-content">
-      <div class="drawer-header">
-        <h3>📲 Instalar App OUTLET SPORT C.A</h3>
-        <button class="close-btn" onclick="closeModal('install-app-modal')">&times;</button>
-      </div>
-
-      <!-- Simulador interactivo de Pantalla de Inicio del Celular -->
-      <div style="background: linear-gradient(160deg, #0B1120 0%, #1E293B 60%, #0F172A 100%); border: 1.5px solid rgba(56, 189, 248, 0.35); border-radius: 16px; padding: 14px; margin-bottom: 14px; text-align: center; box-shadow: inset 0 2px 12px rgba(0,0,0,0.6);">
-        <div style="font-size: 0.7rem; font-weight: 800; color: #38BDF8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px;">
-          📱 Así se ve instalada en la pantalla de tu celular:
-        </div>
-        <div style="display: flex; justify-content: center; align-items: center; gap: 22px; margin: 6px 0 10px;">
-          <!-- Otros iconos simulados tenues -->
-          <div style="opacity: 0.35; display: flex; flex-direction: column; align-items: center; gap: 4px;">
-            <div style="width: 48px; height: 48px; border-radius: 12px; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">💬</div>
-            <span style="font-size: 0.62rem; color: #94A3B8;">WhatsApp</span>
-          </div>
-          <!-- Icono oficial OUTLET SPORT C.A resaltado -->
-          <div onclick="simulateInstalledAppTest()" style="cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; transform: scale(1.06); transition: transform 0.2s;" title="Toca para simular la instalación">
-            <div style="position: relative; width: 62px; height: 62px; border-radius: 15px; padding: 2px; background: linear-gradient(135deg, #34D399, #2563EB); box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8EZcfAAADAFBMVEXSFCmaHChrFinVHC6wITBklKajFyegWmrbGi/gRFOgFB+rTlolLxauO2DXMkXkmZ9rXl6arcDOS1r2l3r/sbETDyIAfwAeT2QA/wBqH2qpS1ibb4CqqqrlNUT/AP/l09vyzM4+P2EAZmYA//9WBxJoERt/fwChNEKlOUqtUF6uf461j6LRPknIPUfrR1H/Var//6oAAAAMCA8tJzEvCBERExpOBxMOGSVvBREzRVMuOUcVJTMuGiUsExqNBBFNJjNQGCduFyb7uLZJR1EvMjuvBBZNWWiNJjTwZnDz6uhvJjTnOExOOUXPFytSZnYZNUj5qKn8x8bpR1fRJzf2h4zy9vf5lpnsWGW3xs7UNkevJzQ1VWr619RNEhyMGSjZ5emVp7OJmqjK1dquGCdpeIasusRzh5VuN0bWRlNuRlNPMzv+49yNN0ZpZ3TxdHr+AADEy9FNU1v0eoKptLzP2+FsWGdSdYl9AADHBhnoKUNsER15lKfoGTaMRlTKCyKvAAEsTGLmJjqwOEipqbMULUGvRlPoU1yMh5PTWGWuZnKLWGj8wb1pcnyMeYY5ZHmOERxLbIKOZnSviJSxmaZtMjuNMzz2naIsLUPQZW6Lk5wdMDxrUlxxi6GzDCLXLEKpWWadsruvAQ//f39ccH2PBRTOMT37vcBUAQLNp7EcQla/Pz+ueIfShI7/VVVrCRSSDSGuBBaxMjysVVlyBw+MBhLOeYU7dIpQLUJqBw9uDSCPBxGzARCxBBbOmqf/AH9sLUFvTGPXUlnSdHfKu8TwTmE6UV2UBxaNLECSUVmtAxXEARXMGS/Uk5jo2+H///9SDiFzCRGTAgiyAxS9ADvXN0j8oJw7a4JPSmJwbYCNBA2YtMSwkp3OFCjQIzVTgpdzCBCVBBLVJTjmCin/AFXkNTxbCxB0Bw9/f3+OFiGXcn6wK0HFBhrFBxnODCLOGizUJDfUNEb/Pz86AAxZl65/AH+qAFWsGSiqVVW+0dbHAhjNCibPs7kAf385GRlQFRhQJSXiwT3xAAABAHRSTlNiLBWkbP+Z/xLX6iUGFLCgBv+p/wP/Av8BA2f/BMYBL1b/BQFElQJwzYxo/y1LZwMDAP////////7///////7////+///9//7+/v/+//3///7+/v3+/v79//7+//7////////+//////7///3///4B///+/////wP8///////+Bf/+//////7//f///v////7////////+//7//////v79/ywC/5L+/wf//wT//gMw/8r//4rJ/v//TP8vUbD/Av///v////9S//+Qkjb//wH/bA9wBMr/////rv//zdP/rm+I/wP/LsoCmP//s8zKkHWnBAf/AgOsA/8zLf8CChQN+ukH0QAANh5JREFUeNq9nQd8G+d58OmdnX7du/32HrjDusMBB+BAAAcc9p4EAZAYBMBNcYgUh0iKlKhNzUjykizXjveM7XjHjmM7cWJn79VmNW1W06Tje573PVCkPOUkfX8UCYAg7n/Pfqc6NG+7bfvUDvLz8uuue+iTz33vB1/0+SJq++IXr7iio+Mf//El8oYP/tWH3/5VOt7m3/V/43r4ftlLD3Vc8cUvpaqJoWg8aLeHaLPbg/HoUCLs/RJgXoe3cf0HP9z/bwi47VP4/bqHnvtBxJsYCp7LytiySIbtXCiUzdJXglF39eWvdfwC3//25HjpgP39/ajWjit8Xncc2QAjDuJKpSK+doukvOFEKxoMkV8fGUq8/MNfgCD/+oP9v3FAIrzrOn4QSUTtfXJfKDi0lPL5xjuhWTY3fGHG50uFW0dCfbIcirtf/uHHUIw/+Y0C7gAJvPTQ93zhaIhcFNgomfG1GuGc8UVA0uTtifd1vAPM8Ru/McAPw0df99EfeIfssmyPhiMzyEZQ9K/dLlCCwIHRPvTOr4EY+6//jQCiG173nC8cz8qhaBi1atmMpt3aLqbsnDmdOJKVs/FdfweI1//01w7Y/1cQVB72LQXlvqA7Mq7K7tVgF5rZLJg3UVpOnfKlWnY5eySBiH/V/+sFRLy/S7ntfdkjKDyq2Yvo9DnrRjO3KQVBoIg2mxHE6EsEs31BivhrBATtvvtq+OxYX9w7M95puWB2qjptHldjevHMmRVot9zyJyu3rJxZna54CKdA3gPQNqPx9s5OXzjYB4hf26G5/h9+XYBwr1d+yRuHzyXS20yHbOuN6WdXV1dHT9ZqNQn+nRwdbX5n7eDBL3zh4DWrFREpQY6C1YrmePvtpyJLwb5stPrDn2j+/tcCCKHlve9LDaFmvJELeEhn8zQa09O1mqKwrCAw+MUyLPkSWFEZPbB28NAXbjlQ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" alt="OUTLET SPORT C.A App Icon" style="width: 100%; height: 100%; border-radius: 13px; object-fit: cover; display: block;">
-              <span style="position: absolute; -top: 5px; -right: 5px; background: #10B981; color: #0F172A; font-size: 0.58rem; font-weight: 900; padding: 1px 5px; border-radius: 8px; border: 1.5px solid #0F172A;">APP</span>
-            </div>
-            <span style="font-size: 0.7rem; font-weight: 800; color: #FFF;">OUTLET SPORT</span>
-          </div>
-          <!-- Otro icono simulado tenue -->
-          <div style="opacity: 0.35; display: flex; flex-direction: column; align-items: center; gap: 4px;">
-            <div style="width: 48px; height: 48px; border-radius: 12px; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">📷</div>
-            <span style="font-size: 0.62rem; color: #94A3B8;">Galería</span>
-          </div>
-        </div>
-        <button type="button" class="btn-copy" style="background: rgba(16, 185, 129, 0.2); border-color: #10B981; color: #34D399; font-size: 0.74rem; padding: 6px 14px; border-radius: 20px;" onclick="simulateInstalledAppTest()">
-          ✨ Probar Simulación de App Instalada Aquí
-        </button>
-      </div>
-
-      <!-- Vista previa del icono real que queda en la pantalla del celular -->
-      <div style="display: flex; align-items: center; gap: 14px; background: #141E30; border: 1px solid #334155; padding: 14px; border-radius: var(--radius-sm); margin-bottom: 14px;">
-        <div class="brand-logo-frame" style="width: 60px; height: 60px; cursor: default;">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8EZcfAAADAFBMVEXSFCmaHChrFinVHC6wITBklKajFyegWmrbGi/gRFOgFB+rTlolLxauO2DXMkXkmZ9rXl6arcDOS1r2l3r/sbETDyIAfwAeT2QA/wBqH2qpS1ibb4CqqqrlNUT/AP/l09vyzM4+P2EAZmYA//9WBxJoERt/fwChNEKlOUqtUF6uf461j6LRPknIPUfrR1H/Var//6oAAAAMCA8tJzEvCBERExpOBxMOGSVvBREzRVMuOUcVJTMuGiUsExqNBBFNJjNQGCduFyb7uLZJR1EvMjuvBBZNWWiNJjTwZnDz6uhvJjTnOExOOUXPFytSZnYZNUj5qKn8x8bpR1fRJzf2h4zy9vf5lpnsWGW3xs7UNkevJzQ1VWr619RNEhyMGSjZ5emVp7OJmqjK1dquGCdpeIasusRzh5VuN0bWRlNuRlNPMzv+49yNN0ZpZ3TxdHr+AADEy9FNU1v0eoKptLzP2+FsWGdSdYl9AADHBhnoKUNsER15lKfoGTaMRlTKCyKvAAEsTGLmJjqwOEipqbMULUGvRlPoU1yMh5PTWGWuZnKLWGj8wb1pcnyMeYY5ZHmOERxLbIKOZnSviJSxmaZtMjuNMzz2naIsLUPQZW6Lk5wdMDxrUlxxi6GzDCLXLEKpWWadsruvAQ//f39ccH2PBRTOMT37vcBUAQLNp7EcQla/Pz+ueIfShI7/VVVrCRSSDSGuBBaxMjysVVlyBw+MBhLOeYU7dIpQLUJqBw9uDSCPBxGzARCxBBbOmqf/AH9sLUFvTGPXUlnSdHfKu8TwTmE6UV2UBxaNLECSUVmtAxXEARXMGS/Uk5jo2+H///9SDiFzCRGTAgiyAxS9ADvXN0j8oJw7a4JPSmJwbYCNBA2YtMSwkp3OFCjQIzVTgpdzCBCVBBLVJTjmCin/AFXkNTxbCxB0Bw9/f3+OFiGXcn6wK0HFBhrFBxnODCLOGizUJDfUNEb/Pz86AAxZl65/AH+qAFWsGSiqVVW+0dbHAhjNCibPs7kAf385GRlQFRhQJSXiwT3xAAABAHRSTlNiLBWkbP+Z/xLX6iUGFLCgBv+p/wP/Av8BA2f/BMYBL1b/BQFElQJwzYxo/y1LZwMDAP////////7///////7////+///9//7+/v/+//3///7+/v3+/v79//7+//7////////+//////7///3///4B///+/////wP8///////+Bf/+//////7//f///v////7////////+//7//////v79/ywC/5L+/wf//wT//gMw/8r//4rJ/v//TP8vUbD/Av///v////9S//+Qkjb//wH/bA9wBMr/////rv//zdP/rm+I/wP/LsoCmP//s8zKkHWnBAf/AgOsA/8zLf8CChQN+ukH0QAANh5JREFUeNq9nQd8G+d58OmdnX7du/32HrjDusMBB+BAAAcc9p4EAZAYBMBNcYgUh0iKlKhNzUjykizXjveM7XjHjmM7cWJn79VmNW1W06Tje573PVCkPOUkfX8UCYAg7n/Pfqc6NG+7bfvUDvLz8uuue+iTz33vB1/0+SJq++IXr7iio+Mf//El8oYP/tWH3/5VOt7m3/V/43r4ftlLD3Vc8cUvpaqJoWg8aLeHaLPbg/HoUCLs/RJgXoe3cf0HP9z/bwi47VP4/bqHnvtBxJsYCp7LytiySIbtXCiUzdJXglF39eWvdfwC3//25HjpgP39/ajWjit8Xncc2QAjDuJKpSK+doukvOFEKxoMkV8fGUq8/MNfgCD/+oP9v3FAIrzrOn4QSUTtfXJfKDi0lPL5xjuhWTY3fGHG50uFW0dCfbIcirtf/uHHUIw/+Y0C7gAJvPTQ93zhaIhcFNgomfG1GuGc8UVA0uTtifd1vAPM8Ru/McAPw0df99EfeIfssmyPhiMzyEZQ9K/dLlCCwIHRPvTOr4EY+6//jQCiG173nC8cz8qhaBi1atmMpt3aLqbsnDmdOJKVs/FdfweI1//01w7Y/1cQVB72LQXlvqA7Mq7K7tVgF5rZLJg3UVpOnfKlWnY5eySBiH/V/+sFRLy/S7ntfdkjKDyq2Yvo9DnrRjO3KQVBoIg2mxHE6EsEs31BivhrBATtvvtq+OxYX9w7M95puWB2qjptHldjevHMmRVot9zyJyu3rJxZna54CKdA3gPQNqPx9s5OXzjYB4hf26G5/h9+XYBwr1d+yRuHzyXS20yHbOuN6WdXV1dHT9ZqNQn+nRwdbX5n7eDBL3zh4DWrFREpQY6C1YrmePvtpyJLwb5stPrDn2j+/tcCCKHlve9LDaFmvJELeEhn8zQa09O1mqKwrCAw+MUyLPkSWFEZPbB28NAXbjlQ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" alt="Icono Oficial OUTLET SPORT C.A" class="brand-logo-img">
-        </div>
-        <div style="flex: 1;">
-          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 3px;">
-            <strong style="font-size: 0.96rem; color: #FFF;">OUTLET SPORT C.A</strong>
-            <span style="background: rgba(16, 185, 129, 0.2); color: #34D399; font-size: 0.65rem; font-weight: 800; padding: 2px 7px; border-radius: 10px; border: 1px solid #10B981;">VERIFICADA 🛡️</span>
-          </div>
-          <div style="font-size: 0.75rem; color: #94A3B8; line-height: 1.35;">
-            Icono oficial en pantalla de inicio • Sincronización automática en tiempo real • Sin ocupar memoria del teléfono.
-          </div>
-        </div>
-      </div>
-
-      <!-- Botón de instalación directa nativa cuando el navegador lo soporta -->
-      <div id="pwa-native-install-block" style="display: none; margin-bottom: 14px;">
-        <button type="button" class="btn-action-primary" style="background: linear-gradient(135deg, #10B981, #059669); color: #0F172A; font-weight: 900; font-size: 0.98rem;" onclick="launchNativePwaPrompt()">
-          <span>⚡</span> Instalar Ahora en 1 Toque
-        </button>
-      </div>
-
-      <!-- Estado cuando ya está instalada -->
-      <div id="pwa-already-installed-block" style="display: none; background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; border-radius: var(--radius-sm); padding: 12px; margin-bottom: 14px; text-align: center;">
-        <div style="font-size: 0.9rem; font-weight: 800; color: #34D399; margin-bottom: 4px;">✅ ¡La App OUTLET SPORT C.A ya está instalada!</div>
-        <div style="font-size: 0.76rem; color: #CBD5E1;">Búscala en la pantalla principal de tu celular con el logo oficial de la tienda. Todo cambio en el catálogo se actualiza automáticamente.</div>
-      </div>
-
-      <!-- Instrucciones adaptadas para Android / Chrome / Samsung -->
-      <div id="pwa-android-instructions">
-        <div style="font-size: 0.8rem; font-weight: 800; color: #38BDF8; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-          <span>🤖</span> Instalación rápida en Android (Chrome / Samsung / Edge):
-        </div>
-        <div class="pwa-step-card">
-          <span class="pwa-step-num">1</span>
-          <div style="font-size: 0.78rem; color: #E2E8F0; line-height: 1.4;">
-            Si estás en la tienda pública (<strong>outletsportca.github.io/index.html/</strong>), toca el menú de <strong>3 puntos (⋮)</strong> arriba a la derecha en tu navegador.
-          </div>
-        </div>
-        <div class="pwa-step-card">
-          <span class="pwa-step-num">2</span>
-          <div style="font-size: 0.78rem; color: #E2E8F0; line-height: 1.4;">
-            Selecciona <strong>«Instalar aplicación»</strong> o <strong>«Agregar a la pantalla principal»</strong> y confirma tocando <strong>Instalar</strong>.
-          </div>
-        </div>
-      </div>
-
-      <!-- Instrucciones adaptadas para iPhone / iPad (Safari) -->
-      <div id="pwa-ios-instructions" style="margin-top: 10px;">
-        <div style="font-size: 0.8rem; font-weight: 800; color: #F472B6; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-          <span>🍎</span> Instalación rápida en iPhone / iPad (Safari):
-        </div>
-        <div class="pwa-step-card">
-          <span class="pwa-step-num" style="background: #EC4899;">1</span>
-          <div style="font-size: 0.78rem; color: #E2E8F0; line-height: 1.4;">
-            Toca el botón <strong>Compartir (⬆️)</strong> en la barra inferior de Safari.
-          </div>
-        </div>
-        <div class="pwa-step-card">
-          <span class="pwa-step-num" style="background: #EC4899;">2</span>
-          <div style="font-size: 0.78rem; color: #E2E8F0; line-height: 1.4;">
-            Desliza hacia abajo, elige <strong>«Agregar a inicio» (Add to Home Screen)</strong> y toca <strong>Agregar</strong> arriba a la derecha. ¡Quedará instalada con el logo oficial!
-          </div>
-        </div>
-      </div>
-
-      <!-- Escudo de Seguridad y Privacidad -->
-      <div class="security-shield-box">
-        <div style="font-weight: 800; color: #34D399; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-          <span>🛡️</span> Blindaje de Seguridad y Protección al Celular:
-        </div>
-        • <strong>Cero virus ni APK externos:</strong> Se instala mediante tecnología oficial PWA (Progressive Web App) aislada y protegida por el navegador bajo cifrado HTTPS.<br>
-        • <strong>No accede a tus archivos privados:</strong> No solicita permisos intrusivos ni ralentiza la batería o memoria del teléfono.<br>
-        • <strong>Actualización en vivo:</strong> Cada zapatilla, talla o precio nuevo aparece al instante sin reinstalar nada.
-      </div>
-
-      <div style="display: flex; gap: 8px; margin-top: 14px;">
-        <button type="button" class="btn-action-primary" style="flex: 1;" onclick="closeModal('install-app-modal')">
-          Entendido
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- Bottom Navigation Bar -->
   <nav class="bottom-nav">
     <button class="nav-item active" onclick="scrollToTop()">
@@ -3004,10 +2817,6 @@
       <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
       <span>Carrito</span>
       <span id="cart-badge-bottom" class="cart-count-bottom" style="display: none;">0</span>
-    </button>
-    <button class="nav-item" id="btn-install-app-bottom" onclick="triggerInstallApp()">
-      <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14zm-4.2-5.78v1.75l3.2-2.99L12.8 9v1.7c-3.11.43-4.35 2.56-4.8 4.7 1.11-1.5 2.58-2.18 4.8-2.18z"/></svg>
-      <span id="install-bottom-text">Instalar App</span>
     </button>
     <button class="nav-item" onclick="openShareModal()">
       <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
@@ -3649,10 +3458,6 @@
             <div class="sizes-preview">
               ${item.sizes.slice(0, 4).map(s => `<span class="size-tag">${s}</span>`).join("")}
               ${item.sizes.length > 4 ? `<span class="size-tag">+${item.sizes.length - 4}</span>` : ""}
-            </div>
-
-            <div class="jewel-vip-card-tag" title="Incluye Certificado Digital VIP de Autenticidad">
-              <span>💎</span> Pieza VIP • Certificado Digital
             </div>
             <!-- Cantidad de productos disponibles en la celda -->
             <div class="card-stock-row">
@@ -4372,7 +4177,21 @@ ${shareUrl}`;
       if (stockDisplay) {
         stockDisplay.innerHTML = stockVal > 0 
           ? `📦 Disponibles en vitrina: <strong>${stockVal} pares</strong>` 
-          : `<span style="color: #EF4444;">❌ Agotado temporalmente</span>`;
+          : `<span style="color: #EF4444; font-weight: 800;">❌ Agotado temporalmente</span>`;
+      }
+      const addBtn = document.getElementById("btn-add-modal");
+      if (addBtn) {
+        if (stockVal <= 0) {
+          addBtn.disabled = true;
+          addBtn.style.opacity = "0.5";
+          addBtn.style.cursor = "not-allowed";
+          addBtn.innerHTML = `<span>❌</span> Modelo Agotado`;
+        } else {
+          addBtn.disabled = false;
+          addBtn.style.opacity = "1";
+          addBtn.style.cursor = "pointer";
+          addBtn.innerHTML = `<span>🛒</span> Añadir al Carrito`;
+        }
       }
 
       document.getElementById("modal-price").textContent = formatCOP(activeProduct.price);
@@ -4419,6 +4238,17 @@ ${shareUrl}`;
 
     function addSelectedToCart() {
       if (!activeProduct || !selectedSize) return;
+
+      const currentStock = activeProduct.stock !== undefined ? activeProduct.stock : ((activeProduct.id % 8) + 5);
+      if (currentStock <= 0) {
+        showToast("❌ Este modelo se encuentra agotado temporalmente.");
+        return;
+      }
+      const inCartTotal = cart.filter(c => c.id === activeProduct.id).reduce((sum, c) => sum + c.quantity, 0);
+      if (inCartTotal >= currentStock) {
+        showToast(`⚠️ No hay más pares disponibles. Stock restante: ${currentStock}`);
+        return;
+      }
 
       const existingIndex = cart.findIndex(c => c.id === activeProduct.id && c.size === selectedSize);
       if (existingIndex > -1) {
@@ -4548,11 +4378,13 @@ ${shareUrl}`;
 
     /* Modales */
     function openModal(id) {
-      document.getElementById(id).classList.add("open");
+      const el = document.getElementById(id);
+      if (el) el.classList.add("open");
     }
 
     function closeModal(id) {
-      document.getElementById(id).classList.remove("open");
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("open");
     }
 
     function closeModalOnBackdrop(e, id) {
@@ -4613,9 +4445,6 @@ ${shareUrl}`;
               <div class="checkout-article-price">${formatCOP(itemTotal)}</div>
             </div>
             <div class="checkout-article-actions">
-              <button type="button" class="btn-action-small" style="border-color: #F59E0B; color: #FDE68A;" onclick="openVipCertificateModalById(${item.id}, '${item.size}')" title="Ver Certificado Digital VIP de Autenticidad (Como una Joya)">
-                💎 Certificado VIP
-              </button>
               <button type="button" class="btn-action-small" onclick="downloadItemPhoto(${item.id})" title="Descargar foto del producto a tu celular">
                 📥 Foto
               </button>
@@ -4867,15 +4696,11 @@ ${shareUrl}`;
       const orderId = "OUTLET-" + Math.floor(1000 + Math.random() * 9000);
       let subtotalAmount = 0;
       let itemsListText = "";
-      let certSerialsText = "";
 
       cart.forEach((item) => {
         const itemTotal = item.price * item.quantity;
         subtotalAmount += itemTotal;
-        const serialCode = getJewelSerialForProduct(item);
         itemsListText += `• ${item.quantity}x ${item.title} [${item.gender || 'Hombre y mujer'}] (Talla: ${item.size}) - ${formatCOP(itemTotal)}
-`;
-        certSerialsText += `• ${item.title} (Talla ${item.size}) → Serie Joya: *${serialCode}*
 `;
       });
 
@@ -4905,28 +4730,22 @@ ${shareUrl}`;
 ━━━━━━━━━━━━━━━━━━━━
 📦 *ARTÍCULOS DEL PEDIDO:*
 ${itemsListText}━━━━━━━━━━━━━━━━━━━━
-💎 *CERTIFICADO DIGITAL VIP DE AUTENTICIDAD (PIEZA JOYA):*
-${certSerialsText}━━━━━━━━━━━━━━━━━━━━
-🚚 *Envío:* GRATIS a toda Colombia
+🚚 *Envío:* A toda Colombia
 ${vipLineText}💰 *TOTAL A PAGAR:* ${formatCOP(totalAmount)}
 💳 *MÉTODO DE PAGO:* ${paymentName}
 ━━━━━━━━━━━━━━━━━━━━
-📸 *FOTO DEL CALZADO + CERTIFICADO VIP ADJUNTOS:*
-(Imágenes listas para verificación en bodega)`;
+📸 *FOTO DEL CALZADO ADJUNTA:*
+(Foto oficial para verificación en bodega)`;
 
-      // Obtener o generar los archivos de foto + Certificado Digital VIP de Autenticidad
+      // Obtener o generar los archivos de foto del calzado para adjuntar
       let photoFiles = [];
       try {
         for (const item of cart) {
           const file = await createProductImageFile(item, orderId);
           if (file) photoFiles.push(file);
         }
-        if (cart.length > 0) {
-          const certFile = await createVipCertificateImageFile(cart[0], orderId, name);
-          if (certFile) photoFiles.push(certFile);
-        }
       } catch (err) {
-        console.warn("Error creando imagen o certificado:", err);
+        console.warn("Error creando imagen:", err);
       }
 
       const mainPhoto = photoFiles.length > 0 ? photoFiles[0] : null;
@@ -4991,16 +4810,38 @@ ${vipLineText}💰 *TOTAL A PAGAR:* ${formatCOP(totalAmount)}
 
       // Si la foto y el pedido se abrieron en WhatsApp mediante Web Share
       if (sharedSuccessfully) {
+      // Descontar del stock disponible de cada zapatilla vendida
+      cart.forEach((soldItem) => {
+        const catItem = catalog.find(x => x.id === soldItem.id);
+        if (catItem) {
+          const curStock = catItem.stock !== undefined ? catItem.stock : ((catItem.id % 8) + 5);
+          catItem.stock = Math.max(0, curStock - (soldItem.quantity || 1));
+        }
+      });
+      saveCatalog();
+      renderCatalog();
+
         cart = [];
         saveCart();
         closeModal("checkout-modal");
-        showToast("¡Pedido con foto adjunta enviado a WhatsApp!");
+        showToast("¡Pedido enviado a WhatsApp y stock descontado!");
         return;
       }
 
       // 3. FALLBACK DIRECTO A WHATSAPP WEB / ESCRITORIO (+57 315 741 9697)
       // Si el navegador no permite compartir archivos directamente (PC),
       // abre el chat de WhatsApp con el número oficial y la foto lista en portapapeles/galería
+      // Descontar del stock disponible de cada zapatilla vendida
+      cart.forEach((soldItem) => {
+        const catItem = catalog.find(x => x.id === soldItem.id);
+        if (catItem) {
+          const curStock = catItem.stock !== undefined ? catItem.stock : ((catItem.id % 8) + 5);
+          catItem.stock = Math.max(0, curStock - (soldItem.quantity || 1));
+        }
+      });
+      saveCatalog();
+      renderCatalog();
+
       cart = [];
       saveCart();
       closeModal("checkout-modal");
@@ -5130,8 +4971,7 @@ Hola, por ser parte de nuestros clientes distinguidos en *OUTLET SPORT C.A*, hem
 
 🔑 *TU CÓDIGO VIP:* *${cleanCode}*
 🎁 *BENEFICIO EXCLUSIVO:* *${discountVal}% de descuento* sobre el total de tu compra
-💎 *INCLUYE:* Certificado Digital VIP de Autenticidad en cada par (seleccionado como una joya)
-🚚 *ENVÍO:* Gratis a toda Colombia
+🚚 *ENVÍO:* A toda Colombia
 
 👉 *Ingresa a nuestra tienda o App oficial, elige tus zapatillas y aplica tu código en el carrito:*
 ${shareUrl}`;
@@ -5237,306 +5077,9 @@ ${shareUrl}`;
       }
     }
 
-    /* ========================================================
-       CERTIFICADO DIGITAL VIP DE AUTENTICIDAD ("COMO UNA JOYA")
-       ======================================================== */
-    let currentCertProduct = null;
-    let currentCertSize = null;
-
-    function getJewelSerialForProduct(item) {
-      if (!item) return "JOYA-VIP-0001";
-      const brandPrefix = (item.brand || "OS").replace(/[^A-Z0-9]/gi, "").substring(0, 3).toUpperCase();
-      const idNum = Number(item.id || 1);
-      const hashCode = ((idNum * 7919) % 9000) + 1000;
-      return `JOYA-${brandPrefix}-${hashCode}`;
-    }
-
-    function openVipCertificateModalForActiveProduct() {
-      if (!activeProduct) return;
-      currentCertProduct = activeProduct;
-      currentCertSize = selectedSize || (activeProduct.sizes && activeProduct.sizes[0]) || 40;
-      const custNameEl = document.getElementById("cust-name");
-      const certOwnerInput = document.getElementById("vip-cert-owner-input");
-      if (certOwnerInput && custNameEl && custNameEl.value.trim() && !certOwnerInput.value.trim()) {
-        certOwnerInput.value = custNameEl.value.trim();
-      }
-      openModal("vip-certificate-modal");
-      refreshVipCertificatePreview();
-    }
-
-    function openVipCertificateModalById(itemId, sizeVal) {
-      const item = cart.find(x => x.id === itemId) || catalog.find(x => x.id === itemId);
-      if (!item) return;
-      currentCertProduct = item;
-      currentCertSize = sizeVal || item.size || (item.sizes && item.sizes[0]) || 40;
-      const custNameEl = document.getElementById("cust-name");
-      const certOwnerInput = document.getElementById("vip-cert-owner-input");
-      if (certOwnerInput && custNameEl && custNameEl.value.trim()) {
-        certOwnerInput.value = custNameEl.value.trim();
-      }
-      openModal("vip-certificate-modal");
-      refreshVipCertificatePreview();
-    }
-
-    async function renderVipCertificateToCanvas(canvas, item, sizeVal, ownerName, customOrderCode) {
-      if (!canvas || !item) return;
-      const ctx = canvas.getContext("2d");
-      const W = canvas.width;
-      const H = canvas.height;
-
-      // Fondo Obsidiana Real con resplandor dorado
-      const bgGrad = ctx.createRadialGradient(W * 0.5, H * 0.3, 40, W * 0.5, H * 0.5, W * 0.75);
-      bgGrad.addColorStop(0, "#1C160B");
-      bgGrad.addColorStop(0.55, "#0D1322");
-      bgGrad.addColorStop(1, "#050811");
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, W, H);
-
-      // Doble marco de oro de 24K
-      const goldGrad = ctx.createLinearGradient(0, 0, W, H);
-      goldGrad.addColorStop(0, "#FDE68A");
-      goldGrad.addColorStop(0.3, "#F59E0B");
-      goldGrad.addColorStop(0.5, "#FFFBEB");
-      goldGrad.addColorStop(0.7, "#D97706");
-      goldGrad.addColorStop(1, "#F59E0B");
-
-      ctx.strokeStyle = goldGrad;
-      ctx.lineWidth = 6;
-      ctx.strokeRect(22, 22, W - 44, H - 44);
-
-      ctx.strokeStyle = "rgba(253, 230, 138, 0.45)";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(36, 36, W - 72, H - 72);
-
-      // Ornamentos de diamantes en las 4 esquinas
-      const corners = [[48, 48], [W - 48, 48], [48, H - 48], [W - 48, H - 48]];
-      ctx.fillStyle = "#FBBF24";
-      corners.forEach(([cx, cy]) => {
-        ctx.beginPath();
-        ctx.moveTo(cx, cy - 10);
-        ctx.lineTo(cx + 10, cy);
-        ctx.lineTo(cx, cy + 10);
-        ctx.lineTo(cx - 10, cy);
-        ctx.closePath();
-        ctx.fill();
-      });
-
-      // Encabezado de Joyería / Pieza de Colección
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#FBBF24";
-      ctx.font = "900 18px 'Montserrat', sans-serif";
-      ctx.fillText("💎 EDICIÓN EXCLUSIVA DE COLECCIÓN • OUTLET SPORT C.A 💎", W / 2, 84);
-
-      ctx.fillStyle = "#FFFFFF";
-      ctx.font = "900 36px 'Montserrat', sans-serif";
-      ctx.fillText("CERTIFICADO DIGITAL VIP DE AUTENTICIDAD", W / 2, 132);
-
-      ctx.fillStyle = "#FDE68A";
-      ctx.font = "italic 700 20px 'Georgia', serif";
-      ctx.fillText("«Pieza Distinguida y Seleccionada como una Verdadera Joya de Calzado»", W / 2, 168);
-
-      // Línea divisoria dorada
-      ctx.strokeStyle = "rgba(245, 158, 11, 0.55)";
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(140, 190);
-      ctx.lineTo(W - 140, 190);
-      ctx.stroke();
-
-      // Recuadro izquierdo para la imagen de la joya (zapatilla)
-      ctx.fillStyle = "rgba(15, 23, 42, 0.88)";
-      ctx.fillRect(65, 215, 420, 340);
-      ctx.strokeStyle = "#F59E0B";
-      ctx.lineWidth = 2.5;
-      ctx.strokeRect(65, 215, 420, 340);
-
-      // Dibujar foto o silueta del calzado
-      await new Promise((resolve) => {
-        const prodImg = new Image();
-        prodImg.crossOrigin = "anonymous";
-        let blobUrl = null;
-        const finishDraw = () => {
-          if (blobUrl) {
-            try { URL.revokeObjectURL(blobUrl); } catch (e) {}
-          }
-          resolve();
-        };
-        const tId = setTimeout(finishDraw, 1000);
-        prodImg.onload = () => {
-          clearTimeout(tId);
-          ctx.drawImage(prodImg, 85, 235, 380, 280);
-          finishDraw();
-        };
-        prodImg.onerror = () => {
-          clearTimeout(tId);
-          finishDraw();
-        };
-        if (item.image && item.image.startsWith("data:")) {
-          prodImg.src = item.image;
-        } else {
-          const svgStr = generateSneakerSVG(item);
-          const svgBlob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
-          blobUrl = URL.createObjectURL(svgBlob);
-          prodImg.src = blobUrl;
-        }
-      });
-
-      ctx.fillStyle = "#FDE68A";
-      ctx.font = "800 14px sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("PIEZA AUTÉNTICA DE VITRINA VIP", 275, 538);
-
-      // Panel derecho: Metadatos de la Joya
-      ctx.textAlign = "left";
-      const serialCode = customOrderCode
-        ? `${getJewelSerialForProduct(item)}-${customOrderCode}`
-        : getJewelSerialForProduct(item);
-      const displayOwner = (ownerName && ownerName.trim()) ? ownerName.trim().toUpperCase() : "COLECCIONISTA DISTINGUIDO VIP";
-      const dateStr = new Date().toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" });
-
-      ctx.fillStyle = "#94A3B8";
-      ctx.font = "700 15px sans-serif";
-      ctx.fillText("NÚMERO DE SERIE DE LA PIEZA:", 520, 242);
-      ctx.fillStyle = "#FBBF24";
-      ctx.font = "900 24px monospace";
-      ctx.fillText(serialCode, 520, 272);
-
-      ctx.fillStyle = "#94A3B8";
-      ctx.font = "700 15px sans-serif";
-      ctx.fillText("NOMBRE DE LA JOYA / MODELO:", 520, 315);
-      ctx.fillStyle = "#FFFFFF";
-      ctx.font = "900 26px sans-serif";
-      ctx.fillText((item.title || "Zapatilla Exclusiva").substring(0, 30), 520, 346);
-
-      ctx.fillStyle = "#38BDF8";
-      ctx.font = "800 18px sans-serif";
-      ctx.fillText(`MARCA: ${item.brand || 'EXCLUSIVA'}   •   DISEÑO: ${(item.gender || 'Hombre y mujer').toUpperCase()}   •   TALLA: ${sizeVal}`, 520, 384);
-
-      ctx.fillStyle = "#94A3B8";
-      ctx.font = "700 15px sans-serif";
-      ctx.fillText("PROPIETARIO / TITULAR DISTINGUIDO:", 520, 430);
-      ctx.fillStyle = "#FDE68A";
-      ctx.font = "900 23px sans-serif";
-      ctx.fillText(displayOwner.substring(0, 34), 520, 460);
-
-      ctx.fillStyle = "#94A3B8";
-      ctx.font = "700 15px sans-serif";
-      ctx.fillText(`VALOR DE COLECCIÓN: ${formatCOP(item.price)}   |   EXPEDICIÓN: ${dateStr}`, 520, 504);
-
-      // Declaración de Valor Estético y Exclusividad (Enfoque 100% Joya de Colección)
-      ctx.fillStyle = "rgba(30, 41, 59, 0.75)";
-      ctx.fillRect(65, 580, W - 130, 110);
-      ctx.strokeStyle = "rgba(245, 158, 11, 0.4)";
-      ctx.lineWidth = 1.5;
-      ctx.strokeRect(65, 580, W - 130, 110);
-
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#E2E8F0";
-      ctx.font = "600 16px sans-serif";
-      ctx.fillText("OUTLET SPORT C.A certifica que este par ha sido curado e inspeccionado como una pieza", W / 2, 616);
-      ctx.fillText("de alta distinción, presencia impecable y valor estético superior, concebida para quien", W / 2, 642);
-      ctx.fillStyle = "#FDE68A";
-      ctx.font = "800 16px sans-serif";
-      ctx.fillText("aprecia el calzado exclusivo con el orgullo y el prestigio de una joya personal.", W / 2, 668);
-
-      // Sello Oficial Dorado en la parte inferior
-      ctx.textAlign = "left";
-      ctx.fillStyle = "#FBBF24";
-      ctx.font = "900 18px sans-serif";
-      ctx.fillText("🏛️ OUTLET SPORT C.A • CALI, COLOMBIA", 65, 742);
-      ctx.fillStyle = "#94A3B8";
-      ctx.font = "600 14px sans-serif";
-      ctx.fillText("WhatsApp Oficial VIP: +57 315 741 9697  •  Tienda Oficial Verificada", 65, 766);
-
-      // Medalla / Sello circular de autenticidad a la derecha
-      const sealX = W - 150;
-      const sealY = 742;
-      ctx.beginPath();
-      ctx.arc(sealX, sealY, 42, 0, Math.PI * 2);
-      ctx.fillStyle = "#B45309";
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = "#FDE68A";
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.arc(sealX, sealY, 34, 0, Math.PI * 2);
-      ctx.lineWidth = 1.5;
-      ctx.strokeStyle = "#FDE68A";
-      ctx.stroke();
-
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#FFFBEB";
-      ctx.font = "900 11px sans-serif";
-      ctx.fillText("SELLO VIP", sealX, sealY - 6);
-      ctx.font = "900 13px sans-serif";
-      ctx.fillText("JOYA 100%", sealX, sealY + 10);
-    }
-
-    async function refreshVipCertificatePreview() {
-      const canvas = document.getElementById("vip-cert-canvas");
-      const ownerInput = document.getElementById("vip-cert-owner-input");
-      const ownerName = ownerInput ? ownerInput.value : "";
-      if (!currentCertProduct) currentCertProduct = activeProduct || catalog[0];
-      await renderVipCertificateToCanvas(canvas, currentCertProduct, currentCertSize || 40, ownerName, "");
-    }
-
-    async function createVipCertificateImageFile(item, orderId, customerName) {
-      try {
-        const offCanvas = document.createElement("canvas");
-        offCanvas.width = 1200;
-        offCanvas.height = 820;
-        await renderVipCertificateToCanvas(offCanvas, item, item.size || 40, customerName || "CLIENTE VIP", orderId);
-        return await new Promise((resolve) => {
-          offCanvas.toBlob((blob) => {
-            if (!blob) return resolve(null);
-            const cleanTitle = (item.title || "Joya").replace(/[^a-zA-Z0-9]/g, "_").substring(0, 20);
-            resolve(new File([blob], `Certificado_VIP_Joya_${cleanTitle}_${orderId}.png`, { type: "image/png" }));
-          }, "image/png");
-        });
-      } catch (e) {
-        console.warn("Aviso generando archivo de Certificado VIP:", e);
-        return null;
-      }
-    }
-
-    async function downloadCurrentVipCertificate() {
-      const canvas = document.getElementById("vip-cert-canvas");
-      if (!canvas) return;
-      await refreshVipCertificatePreview();
-      canvas.toBlob((blob) => {
-        if (!blob) return;
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        const serial = getJewelSerialForProduct(currentCertProduct);
-        a.href = url;
-        a.download = `Certificado_Digital_VIP_${serial}.png`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 2000);
-        showToast("💎 Certificado Digital VIP descargado en alta definición");
-      }, "image/png");
-    }
-
-    async function copyCurrentVipCertificate() {
-      const canvas = document.getElementById("vip-cert-canvas");
-      if (!canvas) return;
-      await refreshVipCertificatePreview();
-      if (!navigator.clipboard || !window.ClipboardItem) {
-        downloadCurrentVipCertificate();
-        return;
-      }
-      canvas.toBlob(async (blob) => {
-        if (!blob) return;
-        try {
-          await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-          showToast("💎 ¡Certificado Digital VIP copiado! Pégalo en WhatsApp");
-        } catch (e) {
-          downloadCurrentVipCertificate();
-        }
-      }, "image/png");
-    }
+    function getJewelSerialForProduct() { return ""; }
+    function openVipCertificateModalForActiveProduct() {}
+    function openVipCertificateModalById() {}
 
     function saveStoreSettings() {
       storeConfig.storeName = document.getElementById("cfg-store-name").value.trim() || "OUTLET SPORT C.A";
@@ -5613,6 +5156,16 @@ ${shareUrl}`;
     /* Genera iconos cuadrados 192x192 y 512x512 exactos desde el logo oficial de OUTLET SPORT C.A */
     function setupDynamicPwaManifestAndIcons() {
       try {
+        const manifestLink = document.getElementById("pwa-manifest-link") || document.querySelector('link[rel="manifest"]');
+        // Si estamos servidos bajo HTTP/HTTPS, mantenemos la referencia al archivo físico manifest.json para cumplimiento nativo WebAPK
+        if (window.location.protocol.startsWith("http")) {
+          if (manifestLink && !manifestLink.getAttribute("href")) {
+            manifestLink.setAttribute("href", "manifest.json");
+          }
+          return;
+        }
+
+        // Respaldo para previsualizaciones locales file://
         const logoImgEl = document.querySelector(".brand-logo-img");
         const logoSrc = logoImgEl ? logoImgEl.getAttribute("src") : null;
         if (!logoSrc) return;
@@ -5631,52 +5184,9 @@ ${shareUrl}`;
               ctx.drawImage(img, 0, 0, size, size);
               return c.toDataURL("image/png");
             };
-
             const icon192 = createSizedIcon(192);
-            const icon512 = createSizedIcon(512);
-
-            // Actualizar apple-touch-icon para iOS
             const appleLink = document.querySelector('link[rel="apple-touch-icon"]');
             if (appleLink) appleLink.setAttribute("href", icon192);
-
-            // Construir Web App Manifest completo con el icono de OUTLET SPORT C.A
-            const startUrl = window.location.protocol.startsWith("http")
-              ? window.location.href.split("#")[0]
-              : "https://outletsportca.github.io/index.html/";
-
-            const manifestObj = {
-              id: "outlet-sport-ca-pwa",
-              name: "OUTLET SPORT C.A - Tienda Oficial",
-              short_name: "OUTLET SPORT C.A",
-              description: "Catálogo oficial de 150 modelos de zapatillas con actualización en tiempo real, pagos Nequi / Bre-B y pedidos por WhatsApp.",
-              start_url: startUrl,
-              scope: startUrl.substring(0, startUrl.lastIndexOf("/") + 1) || ".",
-              display: "standalone",
-              orientation: "portrait",
-              background_color: "#0F172A",
-              theme_color: "#0F172A",
-              icons: [
-                {
-                  src: icon192,
-                  sizes: "192x192",
-                  type: "image/png",
-                  purpose: "any maskable"
-                },
-                {
-                  src: icon512,
-                  sizes: "512x512",
-                  type: "image/png",
-                  purpose: "any maskable"
-                }
-              ]
-            };
-
-            const manifestJson = JSON.stringify(manifestObj);
-            const manifestDataUri = "data:application/manifest+json;charset=utf-8," + encodeURIComponent(manifestJson);
-            const manifestLink = document.getElementById("pwa-manifest-link") || document.querySelector('link[rel="manifest"]');
-            if (manifestLink) {
-              manifestLink.setAttribute("href", manifestDataUri);
-            }
           } catch (innerErr) {
             console.warn("Aviso generando iconos PWA:", innerErr);
           }
@@ -5693,125 +5203,23 @@ ${shareUrl}`;
         if (!("serviceWorker" in navigator)) return;
         if (!window.location.protocol.startsWith("http")) return;
 
-        // Service Worker ligero y 100% seguro: prioriza red en vivo (Network-First) para que
-        // todo producto nuevo aparezca de inmediato sin congelar versiones antiguas.
-        const swCode = `
-          self.addEventListener('install', (event) => {
-            self.skipWaiting();
+        // Registra el archivo físico sw.js para cumplir las especificaciones W3C y permitir la compilación nativa WebAPK en Android / Chrome
+        navigator.serviceWorker.register("./sw.js", { scope: "./" })
+          .then((reg) => {
+            console.log("Service Worker PWA activo:", reg.scope);
+          })
+          .catch((err) => {
+            console.warn("Aviso registrando Service Worker:", err);
           });
-          self.addEventListener('activate', (event) => {
-            event.waitUntil(self.clients.claim());
-          });
-          self.addEventListener('fetch', (event) => {
-            if (event.request.method !== 'GET') return;
-            event.respondWith(
-              fetch(event.request).catch(() => caches.match(event.request))
-            );
-          });
-        `;
-        const blob = new Blob([swCode], { type: "application/javascript" });
-        const swUrl = URL.createObjectURL(blob);
-        navigator.serviceWorker.register(swUrl).catch(() => {});
-      } catch (e) {}
-    }
-
-    function updateInstallButtonsUI() {
-      isPwaInstalled = isRunningStandalone() || safeGetLocal("outlet_sport_pwa_installed") === "true";
-      const headerBtn = document.getElementById("btn-install-app-header");
-      const headerIcon = document.getElementById("install-btn-icon");
-      const headerText = document.getElementById("install-btn-text");
-      const bottomText = document.getElementById("install-bottom-text");
-      const nativeBlock = document.getElementById("pwa-native-install-block");
-      const installedBlock = document.getElementById("pwa-already-installed-block");
-
-      if (isPwaInstalled) {
-        if (headerBtn) headerBtn.classList.add("installed");
-        if (headerIcon) headerIcon.textContent = "✅";
-        if (headerText) headerText.textContent = "App Lista";
-        if (bottomText) bottomText.textContent = "App Lista";
-        if (installedBlock) installedBlock.style.display = "block";
-        if (nativeBlock) nativeBlock.style.display = "none";
-      } else {
-        if (headerBtn) headerBtn.classList.remove("installed");
-        if (headerIcon) headerIcon.textContent = "📲";
-        if (headerText) headerText.textContent = "Instalar App";
-        if (bottomText) bottomText.textContent = "Instalar App";
-        if (installedBlock) installedBlock.style.display = "none";
-        if (nativeBlock) {
-          nativeBlock.style.display = deferredInstallPrompt ? "block" : "none";
-        }
+      } catch (e) {
+        console.warn("Error en registro SW:", e);
       }
     }
 
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredInstallPrompt = e;
-      updateInstallButtonsUI();
-    });
-
-    window.addEventListener("appinstalled", () => {
-      deferredInstallPrompt = null;
-      safeSetLocal("outlet_sport_pwa_installed", "true");
-      updateInstallButtonsUI();
-      closeModal("install-app-modal");
-      showToast("🎉 ¡App OUTLET SPORT C.A instalada con éxito en tu dispositivo!");
-    });
-
-    async function launchNativePwaPrompt() {
-      if (!deferredInstallPrompt) {
-        openModal("install-app-modal");
-        return;
-      }
-      try {
-        deferredInstallPrompt.prompt();
-        const { outcome } = await deferredInstallPrompt.userChoice;
-        if (outcome === "accepted") {
-          safeSetLocal("outlet_sport_pwa_installed", "true");
-          deferredInstallPrompt = null;
-          updateInstallButtonsUI();
-          closeModal("install-app-modal");
-          showToast("🎉 ¡Instalando App OUTLET SPORT C.A con su icono oficial!");
-        }
-      } catch (err) {
-        console.warn("Install prompt aviso:", err);
-      }
-    }
-
-    function simulateInstalledAppTest() {
-      safeSetLocal("outlet_sport_pwa_installed", "true");
-      updateInstallButtonsUI();
-      showToast("✅ ¡Simulación activada! Mira cómo cambia el estado a 'App Instalada ✅'");
-    }
-
-    async function triggerInstallApp() {
-      // Si el navegador ya tiene listo el instalador nativo en 1 toque, lo dispara de inmediato
-      if (deferredInstallPrompt) {
-        await launchNativePwaPrompt();
-        return;
-      }
-      // Si estamos en iOS, Android o vista previa, mostramos la ventana interactiva con el logo oficial y guía según el dispositivo
-      updateInstallButtonsUI();
-      const ua = navigator.userAgent || "";
-      const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
-      const iosBox = document.getElementById("pwa-ios-instructions");
-      const androidBox = document.getElementById("pwa-android-instructions");
-      if (iosBox && androidBox) {
-        if (isIOS) {
-          iosBox.style.border = "1.5px solid #F472B6";
-          iosBox.style.padding = "10px";
-          iosBox.style.borderRadius = "10px";
-          androidBox.style.border = "none";
-          androidBox.style.padding = "0";
-        } else {
-          androidBox.style.border = "1.5px solid #38BDF8";
-          androidBox.style.padding = "10px";
-          androidBox.style.borderRadius = "10px";
-          iosBox.style.border = "none";
-          iosBox.style.padding = "0";
-        }
-      }
-      openModal("install-app-modal");
-    }
+    function updateInstallButtonsUI() {}
+    function triggerInstallApp() {}
+    function launchNativePwaPrompt() {}
+    function simulateInstalledAppTest() {}
 
     function bootOutletSportApp() {
       const nequiEl = document.getElementById("display-nequi");
